@@ -1,0 +1,16 @@
+{
+  "images": [
+    {
+      "filename": "01_folder_workspace.jpg",
+      "prompt": "A hand-drawn minimalist illustration in warm beige (#F5F0E6) background. Simple line art showing a folder icon with an AI assistant character (represented by a simple smiling robot head) entering or living inside the folder. Use single-color fine lines (#3D3D3D), organic hand-drawn quality with slight wobble, no fill or very light same-tone wash. Optional small handwritten English labels (max 3 words like 'AI Helper', 'Folder'). No gradients, shadows, 3D effects. Clean, elegant, editorial illustration style. 16:9 ratio."
+    },
+    {
+      "filename": "02_cowork_startup.jpg",
+      "prompt": "A hand-drawn minimalist flowchart illustration in warm beige (#F5F0E6) background. Three simple sequential steps shown with arrows: 1) Desktop app icon 2) 'Cowork' tab button 3) Folder selection. Use single-color fine lines (#3D3D3D or #1A1A1A), organic hand-drawn style with slight imperfections. Minimal handwritten English labels like 'Step 1', 'Step 2', 'Step 3'. No gradients, no shadows, no complex textures. Pure line art. 16:9 ratio."
+    },
+    {
+      "filename": "03_comparison_diagram.jpg",
+      "prompt": "A hand-drawn minimalist Venn diagram or comparison table illustration in warm beige (#F5F0E6) background. Three sections labeled 'Chat', 'Code', 'Cowork' with simple icons. Use single-color fine lines (#3D3D3D), organic hand-drawn quality. Minimal text labels in handwritten English style (e.g., 'Everyone', 'Developers', 'Non-tech users'). No fill colors or very subtle same-tone wash. No gradients, no 3D effects. Editorial illustration aesthetic. 16:9 ratio."
+    }
+  ]
+}

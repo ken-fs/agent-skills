@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clawdbot 接入飞书保姆级教程，小白也能搭建你的 7x24 小时 AI 助理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1A1A1A;
+            background-color: #FFFFFF;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: rgb(149, 56, 0);
+            margin: 30px 0 20px 0;
+            line-height: 1.4;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(149, 56, 0);
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2C2C2C;
+            margin: 20px 0 12px 0;
+        }
+
+        p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        /* 金句样式 */
+        blockquote {
+            background: #FFF8F0;
+            border-left: 4px solid rgb(149, 56, 0);
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #3D3D3D;
+            position: relative;
+        }
+
+        blockquote::before {
+            content: '"';
+            font-size: 40px;
+            color: rgb(149, 56, 0);
+            opacity: 0.3;
+            position: absolute;
+            left: 10px;
+            top: 5px;
+        }
+
+        /* 信息框 */
+        .info-box {
+            background: #FFF8F0;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .tip-box {
+            background: #FFF8F0;
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        /* 代码块 */
+        pre {
+            background: #F5F5F5;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 14px;
+        }
+
+        /* 列表样式 */
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        /* 插图样式 */
+        .illustration {
+            background: #FFF8F0;
+            border: 2px solid rgb(149, 56, 0);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .illustration p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 强调文本 */
+        strong {
+            color: rgb(149, 56, 0);
+            font-weight: 600;
+        }
+
+        /* 分割线 */
+        hr {
+            border: none;
+            border-top: 1px solid #E0E0E0;
+            margin: 30px 0;
+        }
+
+        /* 一键复制按钮 */
+        .copy-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgb(149, 56, 0);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(149, 56, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .copy-button:hover {
+            background: rgb(120, 45, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(149, 56, 0, 0.4);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        /* Toast提示 */
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgb(149, 56, 0);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                font-size: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 17px;
+            }
+
+            .copy-button {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>Clawdbot 接入飞书保姆级教程，小白也能搭建你的 7x24 小时 AI 助理</h1>
+
+        <h2>一、为什么我要把AI助手搬进飞书？</h2>
+
+        <p>昨晚11点，我和团队在飞书群里讨论一个技术方案。突然有人抛出一段代码，问"这段逻辑有没有问题"。</p>
+
+        <p>我打开浏览器，登录ChatGPT，复制代码，等待回答，再把结果粘贴回飞书。来回切换了三次，讨论已经跳到下一个话题了。</p>
+
+        <p>那一刻我在想：为什么AI不能直接住在飞书里？@一下就能回答问题，多好。</p>
+
+        <p>后来我发现了Clawdbot——一个能把各种AI模型接入聊天工具的"遥控器"。配置完成后，我的AI助手真的住进了飞书，24小时待命。</p>
+
+        <blockquote>✨ 最好的工具，是让你忘记切换的工具。</blockquote>
+
+        <p>这篇文章就是一份保姆级教程，手把手教你把Clawdbot接入飞书。跟着做，10分钟搞定。</p>
+
+        <div class="illustration">
+            <img src="01_architecture.jpg" alt="Clawdbot架构示意图">
+            <p>【配图1：Clawdbot连接飞书和多个AI模型的架构图】</p>
+        </div>
+
+        <hr>
+
+        <h2>二、准备工作</h2>
+
+        <h3>2.1 你需要什么</h3>
+
+        <ul>
+            <li><strong>一台Mac或Linux电脑</strong>（Windows用户需要WSL，稍微麻烦一点）</li>
+            <li><strong>飞书企业账号</strong>（个人免费版也可以，功能够用）</li>
+            <li><strong>10分钟耐心</strong>（真的，只要10分钟）</li>
+        </ul>
+
+        <p>不需要懂编程，不需要配环境。复制粘贴命令就行。</p>
+
+        <h3>2.2 Clawdbot是什么？</h3>
+
+        <p>一句话：Clawdbot是AI助手的"万能遥控器"。</p>
+
+        <p>你家可能有好几台电视（比如客厅一台、卧室一台），每台都有自己的遥控器。Clawdbot就像那个万能遥控器，让你用一个工具控制多个AI模型（Qwen、GLM、Minimax等）。</p>
+
+        <p>更重要的是，它能把这些AI模型接入飞书、Telegram、Discord等聊天工具。你不用再打开浏览器、登录网页，直接在聊天窗口@机器人就行。</p>
+
+        <blockquote>✨ 一个遥控器控制所有电视，一个入口调用所有AI。</blockquote>
+
+        <p>推荐用Qwen Code——免费、速度快、中文支持好。对于大部分日常使用，完全够了。</p>
+
+        <hr>
+
+        <h2>三、第一步：安装Clawdbot（5分钟搞定）</h2>
+
+        <h3>3.1 安装命令</h3>
+
+        <p>打开终端（Mac用户按Command+Space，输入"Terminal"），复制粘贴下面这行命令：</p>
+
+        <pre><code>curl -fsSL https://clawd.bot/install.sh | bash</code></pre>
+
+        <p>回车，然后等几秒。</p>
+
+        <h3>3.2 安装过程详解（逐步截图）</h3>
+
+        <p>安装脚本会问你几个问题，别紧张，按我说的选就行。</p>
+
+        <p><strong>步骤1：接受风险提示</strong></p>
+        <ul>
+            <li>提示：是否接受风险？</li>
+            <li>你选：<strong>Yes</strong></li>
+        </ul>
+
+        <p><strong>步骤2：选择配置模式</strong></p>
+        <ul>
+            <li>提示：快速配置还是自定义？</li>
+            <li>你选：<strong>Quick Start</strong>（快速配置，省事）</li>
+        </ul>
+
+        <p><strong>步骤3：选择AI模型</strong></p>
+        <ul>
+            <li>提示：连接哪个大模型？</li>
+            <li>你选：<strong>Qwen Code</strong>（推荐，免费且好用）</li>
+        </ul>
+
+        <p><strong>步骤4：授权Qwen</strong></p>
+        <ul>
+            <li>浏览器会自动打开Qwen的授权页面</li>
+            <li>你需要：登录Qwen账号，点击"同意授权"</li>
+            <li>授权成功后，回到终端继续</li>
+        </ul>
+
+        <p><strong>步骤5：配置Channel（重点！）</strong></p>
+        <ul>
+            <li>提示：选择聊天平台（Telegram、Discord等）</li>
+            <li>你选：<strong>Skip for Now</strong>（跳过，因为默认列表里没有飞书，我们后面单独装）</li>
+        </ul>
+
+        <p><strong>步骤6：Skill插件</strong></p>
+        <ul>
+            <li>提示：是否安装技能插件（天气、画图等）？</li>
+            <li>你选：<strong>No</strong>（暂时跳过，后面需要再装）</li>
+        </ul>
+
+        <p><strong>步骤7：Hooks设置</strong></p>
+        <ul>
+            <li>提示：是否配置Hooks？</li>
+            <li>你选：<strong>Skip for Now</strong>（跳过）</li>
+        </ul>
+
+        <p><strong>步骤8：安装完成</strong></p>
+        <ul>
+            <li>看到"Installation completed successfully!"</li>
+            <li>记下命令行输出的<strong>管理界面地址</strong>（类似 <code>http://localhost:3000</code>），后面会用到</li>
+        </ul>
+
+        <div class="illustration">
+            <img src="03_installation_steps.jpg" alt="安装流程示意图">
+            <p>【配图2：从命令行输入到完成的8个步骤可视化】</p>
+        </div>
+
+        <h3>3.3 常见问题</h3>
+
+        <p><strong>Q1：提示"Permission denied"权限不足？</strong></p>
+        <p>在命令前加<code>sudo</code>重试：</p>
+        <pre><code>sudo curl -fsSL https://clawd.bot/install.sh | bash</code></pre>
+
+        <p><strong>Q2：网络连接失败？</strong></p>
+        <p>检查是否需要科学上网。如果在公司网络，可能被防火墙拦截。</p>
+
+        <p><strong>Q3：Qwen授权失败？</strong></p>
+        <p>浏览器可能没自动打开，手动复制终端里的授权链接到浏览器。</p>
+
+        <hr>
+
+        <h2>四、第二步：在飞书创建应用（核心步骤，最复杂但最重要）</h2>
+
+        <p>这是整个教程最复杂的部分，但别怕。我会把每个按钮在哪里都告诉你。</p>
+
+        <h3>4.1 进入飞书开放平台</h3>
+
+        <ol>
+            <li>浏览器打开：<strong>https://open.feishu.cn/</strong></li>
+            <li>用你的飞书账号登录</li>
+            <li>点击右上角的<strong>"创建企业自建应用"</strong></li>
+        </ol>
+
+        <div class="illustration">
+            <img src="04_feishu_platform.jpg" alt="飞书开放平台首页">
+            <p>【配图3：飞书开放平台首页，标注"创建企业自建应用"按钮位置】</p>
+        </div>
+
+        <h3>4.2 填写应用基本信息</h3>
+
+        <p>创建应用后，填写这些信息：</p>
+
+        <ul>
+            <li><strong>应用名称</strong>：比如"Clawdbot助手"（随便起，自己看得懂就行）</li>
+            <li><strong>应用描述</strong>：写一句话，比如"AI智能助手，支持技术问答"</li>
+            <li><strong>应用图标</strong>（可选）：找个机器人图标，或者用默认的</li>
+        </ul>
+
+        <p>填完点击"确定创建"。</p>
+
+        <h3>4.3 添加机器人能力</h3>
+
+        <p>进入应用管理界面，你会看到左侧菜单栏。</p>
+
+        <ol>
+            <li>找到<strong>"机器人"</strong>选项（一般在"应用功能"下面）</li>
+            <li>点击<strong>"添加机器人"</strong></li>
+            <li>填写<strong>机器人名称</strong>（这个名称会在飞书里显示，比如"Clawdbot"）</li>
+            <li>保存</li>
+        </ol>
+
+        <div class="illustration">
+            <img src="05_add_bot.jpg" alt="添加机器人">
+            <p>【配图4：标注左侧"机器人"菜单位置和"添加机器人"按钮】</p>
+        </div>
+
+        <h3>4.4 配置权限（最容易出错的地方）</h3>
+
+        <p>这一步是核心，也是最容易搞错的。</p>
+
+        <p>飞书的权限系统很严格，缺一个权限机器人就不工作。你需要开通<strong>3个必需权限</strong>：</p>
+
+        <p><strong>权限1：im:message.group_at_msg</strong></p>
+        <ul>
+            <li><strong>作用</strong>：让机器人能收到群里@它的消息</li>
+            <li><strong>在哪里</strong>：左侧菜单"权限管理" → "消息与群组" → 找到"获取群组中所有消息"</li>
+            <li><strong>操作</strong>：点击"申请"按钮</li>
+        </ul>
+
+        <p><strong>权限2：im:message.p2p_msg</strong></p>
+        <ul>
+            <li><strong>作用</strong>：让机器人能收到私聊消息</li>
+            <li><strong>在哪里</strong>：同样在"消息与群组"里，找到"获取用户发给机器人的单聊消息"</li>
+            <li><strong>操作</strong>：点击"申请"按钮</li>
+        </ul>
+
+        <p><strong>权限3：im:message:send_as_bot</strong></p>
+        <ul>
+            <li><strong>作用</strong>：让机器人能发送回复</li>
+            <li><strong>在哪里</strong>：继续在"消息与群组"里，找到"以应用的身份发消息"</li>
+            <li><strong>操作</strong>：点击"申请"按钮</li>
+        </ul>
+
+        <div class="tip-box">
+            <p><strong>重要提示：</strong></p>
+            <ul>
+                <li>有些权限会立即开通，有些需要管理员审批</li>
+                <li><strong>确保这3个权限的状态都是"已开通"</strong>，否则机器人不会回复</li>
+            </ul>
+        </div>
+
+        <div class="illustration">
+            <img src="06_permissions.jpg" alt="权限配置">
+            <p>【配图5：三个必需权限的可视化清单】</p>
+        </div>
+
+        <blockquote>✨ 权限配置是最繁琐的，但也是一次配置终身受益的事情。</blockquote>
+
+        <h3>4.5 配置事件订阅</h3>
+
+        <p>权限搞定后，让机器人"听到"用户的消息。</p>
+
+        <ol>
+            <li>左侧菜单找到<strong>"事件订阅"</strong></li>
+            <li>你会看到一个<strong>"请求地址配置"</strong>（也叫回调地址、Callback URL）</li>
+            <li><strong>先别填！</strong>这个地址要等Clawdbot配置完才有，我们第三步会回来填</li>
+            <li>往下滚动，找到<strong>"添加事件"</strong></li>
+            <li>搜索并勾选：<strong>"接收消息 v2.0"</strong>（事件名：<code>im.message.receive_v1</code>）</li>
+            <li>保存</li>
+        </ol>
+
+        <div class="illustration">
+            <img src="07_event_subscription.jpg" alt="事件订阅">
+            <p>【配图6：标注"事件订阅"菜单位置、"请求地址配置"输入框（标记"暂时留空"）】</p>
+        </div>
+
+        <h3>4.6 获取凭证（重要！这是Clawdbot连接飞书的钥匙）</h3>
+
+        <p>现在要拿到两把"钥匙"：</p>
+
+        <ol>
+            <li>左侧菜单找到<strong>"凭证与基础信息"</strong>（有的版本叫"应用凭证"）</li>
+            <li>你会看到：
+                <ul>
+                    <li><strong>App ID</strong>（应用ID）：一串字符，比如 <code>cli_a1b2c3d4e5f6g7h8</code></li>
+                    <li><strong>App Secret</strong>（应用密钥）：点击"显示"才能看到，比如 <code>xAbC123DeF456GhI789</code></li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="info-box">
+            <p><strong>立即复制保存这两个！</strong></p>
+            <ul>
+                <li>打开记事本或备忘录</li>
+                <li>分别粘贴App ID和App Secret</li>
+                <li><strong>特别注意</strong>：App Secret只能看一次，如果忘了就得重新生成</li>
+            </ul>
+        </div>
+
+        <div class="illustration">
+            <img src="08_credentials.jpg" alt="获取凭证">
+            <p>【配图7：标注App ID和App Secret的位置】</p>
+        </div>
+
+        <h3>4.7 发布应用</h3>
+
+        <p>凭证拿到后，发布应用：</p>
+
+        <ol>
+            <li>应用管理页面，找到右上角的<strong>"创建版本"</strong>按钮</li>
+            <li>填写<strong>版本号</strong>（比如 1.0.0）和<strong>更新说明</strong>（随便写，比如"初始版本"）</li>
+            <li>点击<strong>"保存"</strong>，然后点击<strong>"申请发布"</strong></li>
+            <li>提交后等待审核（企业自建应用通常几分钟就过，有的甚至秒过）</li>
+        </ol>
+
+        <p>审核通过后，你的飞书应用就准备好了！</p>
+
+        <hr>
+
+        <h2>五、第三步：Clawdbot连接飞书（最后冲刺）</h2>
+
+        <p>现在把Clawdbot和飞书连起来。</p>
+
+        <h3>5.1 打开Clawdbot管理界面</h3>
+
+        <p>还记得安装时终端输出的地址吗？（类似 <code>http://localhost:3000</code>）</p>
+
+        <ol>
+            <li>浏览器打开那个地址</li>
+            <li>你会看到Clawdbot的Web管理界面</li>
+            <li>找到左侧菜单的<strong>"Channel管理"</strong>（或"渠道管理"）</li>
+        </ol>
+
+        <div class="illustration">
+            <img src="09_clawdbot_interface.jpg" alt="Clawdbot管理界面">
+            <p>【配图8：标注Clawdbot管理界面的布局，"Channel管理"位置】</p>
+        </div>
+
+        <h3>5.2 安装飞书Channel插件</h3>
+
+        <ol>
+            <li>在Channel管理页面，找到<strong>"添加Channel"</strong>或<strong>"安装插件"</strong></li>
+            <li>搜索框输入<strong>"飞书"</strong>或<strong>"Feishu"</strong></li>
+            <li>找到飞书插件，点击<strong>"安装"</strong></li>
+        </ol>
+
+        <p>安装后会弹出配置界面。</p>
+
+        <h3>5.3 配置飞书插件</h3>
+
+        <p>这是最后的关键一步。</p>
+
+        <p>在配置界面，填入刚才从飞书拿到的凭证：</p>
+
+        <ul>
+            <li><strong>App ID</strong>：粘贴你保存的App ID</li>
+            <li><strong>App Secret</strong>：粘贴你保存的App Secret</li>
+            <li><strong>其他选项</strong>：一般保持默认</li>
+        </ul>
+
+        <p>填完后点击<strong>"保存配置"</strong>。</p>
+
+        <p>如果配置成功，Clawdbot会生成一个<strong>回调地址（Webhook URL）</strong>，类似：</p>
+        <pre><code>https://your-clawdbot-server.com/webhook/feishu</code></pre>
+
+        <p><strong>立即复制这个回调地址！</strong></p>
+
+        <h3>5.4 回到飞书填写回调地址</h3>
+
+        <p>现在回到飞书开放平台（刚才的浏览器标签页）：</p>
+
+        <ol>
+            <li>进入你的应用管理页面</li>
+            <li>左侧菜单找到<strong>"事件订阅"</strong>（还记得吗，我们之前留空的那个）</li>
+            <li>把Clawdbot生成的<strong>回调地址</strong>粘贴到<strong>"请求地址配置"</strong>输入框</li>
+            <li>点击<strong>"验证"</strong>按钮</li>
+        </ol>
+
+        <p>如果一切正常，会显示<strong>"验证通过"</strong>（绿色提示）。</p>
+
+        <p>如果验证失败：</p>
+        <ul>
+            <li>检查Clawdbot服务是否在运行</li>
+            <li>检查回调地址是否完整（没有多余空格）</li>
+            <li>检查防火墙是否拦截</li>
+        </ul>
+
+        <div class="illustration">
+            <img src="10_callback_flow.jpg" alt="回调地址配置">
+            <p>【配图9：Clawdbot的回调地址复制到飞书的验证流程】</p>
+        </div>
+
+        <blockquote>✨ 回调地址就像门牌号，飞书通过它找到你的Clawdbot。</blockquote>
+
+        <h3>5.5 最终测试</h3>
+
+        <p>一切配置完成！现在测试一下。</p>
+
+        <p><strong>测试1：私聊测试</strong></p>
+        <ol>
+            <li>打开飞书</li>
+            <li>搜索你的机器人名称（比如"Clawdbot"）</li>
+            <li>打开私聊窗口，发送一条消息：<strong>"你好"</strong></li>
+            <li>等待几秒（首次可能稍慢）</li>
+            <li>机器人应该会回复你</li>
+        </ol>
+
+        <p><strong>测试2：群聊测试</strong></p>
+        <ol>
+            <li>创建一个测试群（或用现有群）</li>
+            <li>在群设置里，添加机器人（搜索你的机器人名称）</li>
+            <li>在群里@机器人，发送消息：<strong>"@Clawdbot 介绍一下自己"</strong></li>
+            <li>机器人应该会在群里回复</li>
+        </ol>
+
+        <p>如果两个测试都通过，恭喜你，成功了！🎉</p>
+
+        <div class="illustration">
+            <img src="11_chat_success.jpg" alt="测试成功">
+            <p>【配图10：飞书里和机器人对话的场景插画】</p>
+        </div>
+
+        <hr>
+
+        <h2>六、进阶使用与常见问题</h2>
+
+        <h3>6.1 如何切换AI模型？</h3>
+
+        <p>Clawdbot的强大之处就在这里。</p>
+
+        <ol>
+            <li>打开Clawdbot管理界面</li>
+            <li>找到<strong>"模型管理"</strong>或<strong>"LLM配置"</strong></li>
+            <li>你可以添加多个模型（GLM、Minimax、GPT等）</li>
+            <li>切换默认模型，或者在对话时指定模型</li>
+        </ol>
+
+        <p>每个模型有不同特点：</p>
+        <ul>
+            <li><strong>Qwen</strong>：快、免费、中文好</li>
+            <li><strong>GLM</strong>：理解能力强，适合复杂对话</li>
+            <li><strong>Minimax</strong>：便宜，适合高频调用</li>
+        </ul>
+
+        <h3>6.2 如何添加技能插件？</h3>
+
+        <p>Clawdbot支持各种技能插件（Skill）：</p>
+
+        <ul>
+            <li><strong>天气查询</strong>：问"北京天气怎么样"</li>
+            <li><strong>画图</strong>：让AI生成图片</li>
+            <li><strong>代码执行</strong>：直接运行代码片段</li>
+            <li><strong>网页搜索</strong>：实时搜索互联网</li>
+        </ul>
+
+        <p>安装方法：</p>
+        <ol>
+            <li>Clawdbot管理界面 → <strong>"Skill Marketplace"</strong></li>
+            <li>浏览或搜索你需要的技能</li>
+            <li>点击"安装"</li>
+        </ol>
+
+        <h3>6.3 常见问题排查</h3>
+
+        <p><strong>问题1：机器人不回复</strong></p>
+
+        <p>可能原因：</p>
+        <ul>
+            <li>✅ 检查飞书权限是否全部开通（3个必需权限）</li>
+            <li>✅ 检查事件订阅的回调地址是否正确</li>
+            <li>✅ 查看Clawdbot日志是否有报错（终端里会显示）</li>
+            <li>✅ 确认Clawdbot服务正在运行</li>
+        </ul>
+
+        <p><strong>问题2：机器人回复很慢</strong></p>
+
+        <p>可能原因：</p>
+        <ul>
+            <li>尝试切换其他AI模型（Qwen通常最快）</li>
+            <li>检查网络连接</li>
+            <li>查看Clawdbot是否在处理大量请求</li>
+        </ul>
+
+        <p><strong>问题3：无法@机器人</strong></p>
+
+        <p>可能原因：</p>
+        <ul>
+            <li>确认机器人已加入群聊（在群设置里添加）</li>
+            <li>检查群聊权限<code>im:message.group_at_msg</code>是否开通</li>
+        </ul>
+
+        <p><strong>问题4：回调地址验证失败</strong></p>
+
+        <p>可能原因：</p>
+        <ul>
+            <li>确认Clawdbot服务正在运行（浏览器能打开管理界面）</li>
+            <li>检查回调地址是否完整复制（没有多余空格）</li>
+            <li>检查服务器防火墙/端口配置</li>
+            <li>尝试重新生成回调地址</li>
+        </ul>
+
+        <div class="illustration">
+            <img src="12_troubleshooting.jpg" alt="问题排查">
+            <p>【配图11：常见问题的排查决策树】</p>
+        </div>
+
+        <hr>
+
+        <h2>七、总结</h2>
+
+        <p>回到文章开头的场景：现在你也可以在飞书里随时呼叫AI助手了。</p>
+
+        <p><strong>三个步骤回顾：</strong></p>
+        <ol>
+            <li><strong>安装Clawdbot</strong>：一行命令，5分钟</li>
+            <li><strong>创建飞书应用</strong>：配置权限和事件订阅，稍微复杂但关键</li>
+            <li><strong>连接配置</strong>：填凭证、配回调地址，大功告成</li>
+        </ol>
+
+        <p><strong>最难的部分</strong>：飞书的权限和事件配置。但一次搞定，以后就一劳永逸了。</p>
+
+        <p><strong>行动建议：</strong></p>
+        <ul>
+            <li>先在一个测试群验证功能</li>
+            <li>熟悉后再推广到工作群</li>
+            <li>教团队成员如何@机器人、如何提问</li>
+            <li>探索不同的AI模型和技能插件</li>
+        </ul>
+
+        <blockquote>✨ AI助手不是未来，而是现在。当它住进你的聊天工具，工作方式就变了。</blockquote>
+
+        <p>半夜12点，当你在飞书群里@Clawdbot问问题，它秒回的那一刻，你会明白：这10分钟的配置，值了。</p>
+    </article>
+
+    <button class="copy-button" onclick="copyToClipboard()">📋 一键复制到公众号</button>
+
+    <div class="toast" id="toast">✓ 已复制到剪贴板！</div>
+
+    <script>
+        function copyToClipboard() {
+            // 获取文章内容
+            const article = document.querySelector('article');
+
+            // 创建一个临时的div用于复制
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = article.innerHTML;
+
+            // 将临时div添加到body
+            document.body.appendChild(tempDiv);
+
+            // 选择内容
+            const range = document.createRange();
+            range.selectNode(tempDiv);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            // 执行复制
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动选择内容复制');
+            }
+
+            // 清理
+            window.getSelection().removeAllRanges();
+            document.body.removeChild(tempDiv);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

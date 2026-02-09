@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 画布技术调研报告 (Jimeng vs Oiioii vs Hailuo)</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #475569;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+            --warning-color: #ca8a04;
+            --danger-color: #dc2626;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #334155;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Highlights */
+        .highlight-box {
+            border-left: 4px solid;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-success {
+            background-color: #f0fdf4;
+            border-color: var(--success-color);
+            color: #166534;
+        }
+
+        .highlight-warning {
+            background-color: #fefce8;
+            border-color: var(--warning-color);
+            color: #854d0e;
+        }
+
+        .highlight-danger {
+            background-color: #fef2f2;
+            border-color: var(--danger-color);
+            color: #991b1b;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .tag-tech { background-color: #e0f2fe; color: #0369a1; }
+        .tag-core { background-color: #f3e8ff; color: #7e22ce; }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: "Menlo", "Monaco", "Consolas", monospace;
+            font-size: 0.9em;
+            color: #db2777;
+        }
+
+        .roadmap-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .roadmap-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI 画布技术调研报告</h1>
+        <p>即梦 AI (Jimeng) vs Oiioii AI vs 海螺 AI (Hailuo)</p>
+    </header>
+
+    <h2>1. 核心竞品横向对比</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th width="15%">维度</th>
+                    <th width="28%">即梦 AI (Jimeng)</th>
+                    <th width="28%">Oiioii AI</th>
+                    <th width="28%">海螺 AI (Hailuo Canvas)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>核心定位</strong></td>
+                    <td><strong>专业图像生成与编辑</strong><br><span style="font-size:0.8em; color:#64748b">类似 Photoshop + AI</span></td>
+                    <td><strong>故事板与工作流编排</strong><br><span style="font-size:0.8em; color:#64748b">类似 Miro + Agent</span></td>
+                    <td><strong>多模态对话与视频创作</strong><br><span style="font-size:0.8em; color:#64748b">Chat + Video Nodes</span></td>
+                </tr>
+                <tr>
+                    <td><strong>渲染技术</strong></td>
+                    <td><span class="tag tag-tech">WebGL + Wasm</span><br>高性能自研引擎</td>
+                    <td><span class="tag tag-tech">SVG + DOM</span><br>基于 tldraw</td>
+                    <td><span class="tag tag-tech">Canvas + DOM Hybrid</span><br>高性能混合架构</td>
+                </tr>
+                <tr>
+                    <td><strong>性能重点</strong></td>
+                    <td>像素级渲染、大量高清图处理</td>
+                    <td>矢量图形、节点连接、拖拽</td>
+                    <td>多媒体卡片(视频/音频)管理</td>
+                </tr>
+                <tr>
+                    <td><strong>典型功能</strong></td>
+                    <td>局部重绘(Inpaint)、外绘(Outpaint)</td>
+                    <td>故事卡片、Agent 协作</td>
+                    <td>对话节点、视频生成、节点连线</td>
+                </tr>
+                <tr>
+                    <td><strong>复刻难度</strong></td>
+                    <td>🔴 <strong>极高</strong> (需图形学基础)</td>
+                    <td>🟢 <strong>低</strong> (开源 tldraw)</td>
+                    <td>🟡 <strong>中</strong> (混合架构同步复杂)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>2. 详细技术拆解</h2>
+
+    <div class="card">
+        <h3>A. 即梦 AI (Jimeng)</h3>
+        <ul>
+            <li><strong>技术栈</strong>: WebGL (Custom/Skia) + WebAssembly + Vue/React</li>
+            <li><strong>架构特点</strong>:
+                <ul>
+                    <li><strong>高性能渲染</strong>: 必须使用 GPU 加速以支持 4K+ 分辨率图片的实时编辑。</li>
+                    <li><strong>像素操作</strong>: 画布即引擎，支持像素级合成、蒙版绘制和滤镜。</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>B. Oiioii AI</h3>
+        <ul>
+            <li><strong>技术栈</strong>: React + Vite + <strong>tldraw</strong> (开源)</li>
+            <li><strong>架构特点</strong>:
+                <ul>
+                    <li><strong>开源库魔改</strong>: 直接基于 tldraw，开发成本低。</li>
+                    <li><strong>SVG 渲染</strong>: 不处理像素，只负责“排列”图片和文字卡片。</li>
+                    <li><strong>侧重业务</strong>: 核心价值在于 Chat 面板与画板的联动。</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>C. 海螺 AI (Hailuo Canvas)</h3>
+        <ul>
+            <li><strong>技术栈</strong>: Next.js + React + Ant Design + <strong>Canvas (Main Rendering)</strong></li>
+            <li><strong>架构特点</strong>:
+                <ul>
+                    <li><strong>Chat-First</strong>: 画布是对话历史的空间化展示。</li>
+                    <li><strong>混合渲染 (Hybrid)</strong>: 底层用 Canvas 画线和背景（高性能），上层用 DOM 叠加视频播放器（交互好）。</li>
+                    <li><strong>视频优先</strong>: 数据结构针对 AI 视频生成优化。</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <h2>3. 深度分析：使用 tldraw 复刻海螺的可行性</h2>
+    <div class="highlight-box highlight-warning">
+        <strong>结论：</strong> 可以实现 MVP (最小可行性产品)，但难以达到海螺的生产级性能上限。
+    </div>
+
+    <div class="card">
+        <h3>✅ tldraw 的优势 (Why Yes)</h3>
+        <ol>
+            <li><strong>开发极快</strong>: 开箱即用的无限画布、选择、缩放。</li>
+            <li><strong>React 生态</strong>: 完美契合 Next.js，易于集成现有组件。</li>
+            <li><strong>内置优化</strong>: 自带视口剔除 (Viewport Culling)，不渲染屏幕外节点。</li>
+        </ol>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--danger-color);">
+        <h3>⚠️ 核心风险 (Risks)</h3>
+        <h4>1. 视频节点的 "DOM 爆炸"</h4>
+        <p>当画布上有 100+ 个视频卡片时，tldraw (纯 DOM) 会导致浏览器的内存占用暴涨和合成层压力过大，容易引起页面崩溃或视频黑屏。而海螺使用 Canvas 绘制非活跃节点，性能更好。</p>
+        
+        <h4>2. 混合渲染层级</h4>
+        <p>tldraw 的连线是 SVG。在数百个节点互连时，SVG 的重排 (Reflow) 开销远大于海螺的 Canvas 连线。</p>
+    </div>
+
+    <h2>4. 深度分析：React + tldraw + WebGL 混合架构</h2>
+    <p>用户提问：<em>"如果使用 React + Vite + tldraw + WebGL 的方式，有什么问题？"</em></p>
+    
+    <div class="highlight-box highlight-danger">
+        这是一个充满陷阱的“地狱难度”架构 (The Sandwich Problem)。
+    </div>
+
+    <div class="card">
+        <h3>❌ 核心痛点</h3>
+        <ul>
+            <li><strong>层级死局</strong>: WebGL (Canvas) 和 tldraw (DOM) 是平行的。你无法实现 <code>[tldraw节点] -> [WebGL物体] -> [tldraw连线]</code> 这种穿插层级。</li>
+            <li><strong>果冻效应 (Jitter)</strong>: 快速拖拽时，DOM 更新与 WebGL 刷新率不同步，导致元素“滑步”，廉价感强。</li>
+            <li><strong>导出困难</strong>: tldraw 自带截图只能截 SVG，无法截取 WebGL 内容，需手写复杂的合成逻辑。</li>
+        </ul>
+    </div>
+
+    <h2>5. 终极建议与架构路线</h2>
+
+    <div class="card">
+        <h3>🎨 路线一：做“图像编辑工具” (对标即梦)</h3>
+        <p>如果你的核心是修图、重绘 (Inpainting)。</p>
+        <ul>
+            <li><strong>推荐引擎</strong>: <span class="tag tag-core">LeaferJS</span> (高性能) 或 <span class="tag tag-core">Konva.js</span></li>
+            <li><strong>后端</strong>: ComfyUI (工作流编排)</li>
+            <li><strong>架构</strong>: **放弃 tldraw**，全 Canvas/WebGL 绘制。</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>📋 路线二：做“工作流/故事板” (对标 Oiioii/海螺)</h3>
+        <p>如果你的核心是排版、多节点流转。</p>
+        <ul>
+            <li><strong>MVP 阶段</strong>: <span class="tag tag-core">tldraw</span> (直接用)。开发只需 2-3 天。</li>
+            <li><strong>生产阶段</strong>: <strong>魔改 tldraw</strong> (Hybrid 模式)。
+                <ul>
+                    <li>将所有<strong>不动的节点</strong>降级为 Canvas 绘制。</li>
+                    <li>只有<strong>选中的/播放的</strong>视频才挂载 DOM。</li>
+                    <li>(这相当于手动实现了海螺的架构)</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <h2>6. 附录：SVG vs WebGL 体验差异</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>维度</th>
+                    <th>SVG / DOM (Oiioii)</th>
+                    <th>WebGL / WebGPU (即梦)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>体感类比</strong></td>
+                    <td>像操作 <strong>PPT</strong></td>
+                    <td>像玩 <strong>3A 游戏</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>百图性能</strong></td>
+                    <td>卡顿，掉帧 (DOM 操作重)</td>
+                    <td>丝滑 60FPS (GPU 渲染)</td>
+                </tr>
+                <tr>
+                    <td><strong>缩放体验</strong></td>
+                    <td>有虚焦感，闪烁</td>
+                    <td>无缝线性插值，平滑</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

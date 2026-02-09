@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cowork入门指南：把AI助手请进你的文件夹</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.8;
+            color: #1A1A1A;
+            background: #FFFFFF;
+            padding: 20px;
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            border-bottom: 3px solid rgb(149, 56, 0);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: rgb(149, 56, 0);
+            margin: 40px 0 20px 0;
+            line-height: 1.4;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin: 30px 0 15px 0;
+            line-height: 1.4;
+        }
+
+        p {
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #1A1A1A;
+        }
+
+        .golden-sentence {
+            background: #FFF8F0;
+            border-left: 4px solid rgb(149, 56, 0);
+            padding: 20px 24px;
+            margin: 24px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #1A1A1A;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .golden-sentence::before {
+            content: "✨";
+            position: absolute;
+            left: -12px;
+            top: 18px;
+            font-size: 20px;
+        }
+
+        .illustration {
+            margin: 30px 0;
+            text-align: center;
+            background: #FFF8F0;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #E5E5E5;
+        }
+
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .illustration-caption {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .info-box {
+            background: #FFF8F0;
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #FFF8F0;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box strong,
+        .warning-box strong {
+            color: rgb(149, 56, 0);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 14px;
+            color: rgb(149, 56, 0);
+        }
+
+        pre {
+            background: #F5F5F5;
+            border: 1px solid #E5E5E5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: #1A1A1A;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+
+        table th {
+            background: rgb(149, 56, 0);
+            color: #FFFFFF;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #E5E5E5;
+        }
+
+        table tr:nth-child(even) {
+            background: #F8F8F8;
+        }
+
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: rgb(149, 56, 0);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgb(149, 56, 0);
+            color: #FFFFFF;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 980px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(149, 56, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .copy-btn:hover {
+            background: rgb(120, 45, 0);
+            box-shadow: 0 6px 16px rgba(149, 56, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgb(149, 56, 0);
+            color: #FFFFFF;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            .copy-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+
+        .metadata {
+            background: #F8F8F8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid rgb(149, 56, 0);
+        }
+
+        .metadata h3 {
+            margin-top: 0;
+            color: rgb(149, 56, 0);
+        }
+
+        .metadata ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .metadata li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cowork入门指南：把AI助手请进你的文件夹</h1>
+
+        <div class="metadata">
+            <h3>📋 文章导读</h3>
+            <p><strong>摘要：</strong>Cowork是Anthropic推出的智能体工具，通过图形界面让非技术用户也能用上AI自动化能力。本文从真实场景出发，手把手教你5分钟上手，让AI帮你整理文件、对比数据、生成报告。</p>
+            <ul>
+                <li><strong>你将学到：</strong>Cowork的核心概念、启动方法、适用场景和注意事项</li>
+                <li><strong>适合谁读：</strong>想用AI提升工作效率的非技术用户、知识工作者</li>
+                <li><strong>预计阅读时间：</strong>8分钟</li>
+            </ul>
+        </div>
+
+        <h2>一、你的文件夹，也需要一个AI同事</h2>
+
+        <p>上周，我的桌面堆了38个PDF文件。有会议记录、产品文档、还有几份客户发来的合同。我知道该整理了，但一想到要一个个打开、重命名、分类存档，就想拖到明天。</p>
+
+        <p>这种重复性工作，程序员会写个脚本解决。但对大多数人来说，既不值得专门学编程，又不能就这么放着。你需要的是一个"会干活的同事"——能听懂你的需求,直接帮你搞定。</p>
+
+        <p>Cowork就是这样一个AI助手。它不是聊天机器人，不会只告诉你"应该怎么做"。它会真的动手，在你的文件夹里整理文件、对比数据、生成报告。</p>
+
+        <div class="golden-sentence">
+            <strong>AI的进化：从"顾问"变成"执行者"，只需要一个文件夹的授权。</strong>
+        </div>
+
+        <h2>二、Cowork是什么？先搞清楚3件事</h2>
+
+        <h3>2.1 不是聊天机器人，是"会干活的同事"</h3>
+
+        <p>你可能用过ChatGPT或普通的Claude。问它问题，它给答案。问它怎么整理文件，它会告诉你一套方法论，然后你还得自己动手。</p>
+
+        <p>Cowork不一样。它基于<strong>智能体架构</strong>——能自己分解任务、做决策、并行工作。你说"把这些发票按月份整理"，它会：</p>
+
+        <ol>
+            <li>扫描文件夹里所有文件</li>
+            <li>识别哪些是发票</li>
+            <li>提取日期信息</li>
+            <li>创建子文件夹</li>
+            <li>移动文件</li>
+            <li>告诉你完成了</li>
+        </ol>
+
+        <p>这个过程你什么都不用管。喝杯咖啡回来，活儿干完了。</p>
+
+        <p>举个真实案例：有人让Cowork分析本地100篇文章，核对网站上线情况，推荐最接近发布状态的10篇。Cowork不仅做到了，还输出了一份整理好的Excel表格，标注了每篇文章的状态、建议优先级、缺失的部分。</p>
+
+        <p>这不是"告诉你怎么做"，这是"替你做完"。</p>
+
+        <div class="illustration">
+            <img src="01_folder_workspace.jpg" alt="Cowork文件夹工作空间示意图">
+            <div class="illustration-caption">图1：Cowork基于文件夹的工作空间</div>
+        </div>
+
+        <h3>2.2 图形界面版的Claude Code</h3>
+
+        <p>如果你听说过Claude Code，就知道那是给程序员用的AI编程助手。开发者可以通过命令行让它写代码、运行测试、调试bug。</p>
+
+        <p>Cowork和Claude Code用的是同一套底层技术，但做了个关键改变：<strong>把命令行换成了图形界面</strong>。</p>
+
+        <ul>
+            <li><strong>Claude Code</strong>：你得会用终端，知道怎么写命令</li>
+            <li><strong>Cowork</strong>：点几下鼠标，说清楚你要什么，剩下的它来</li>
+        </ul>
+
+        <p>这意味着，即便你不懂编程，也能用上智能体的能力。文件整理、数据对账、内容生成——这些原本需要写脚本才能自动化的事，现在对着Cowork说一句话就行。</p>
+
+        <p>用Anthropic自己的话说：Cowork是"用于其他工作的Claude Code"。</p>
+
+        <h3>2.3 基于文件夹的工作空间</h3>
+
+        <p>Cowork的设计哲学很特别：<strong>文件夹即界面</strong>。</p>
+
+        <p>你授权它访问哪个文件夹,它就只能在那个文件夹里干活。不能乱跑、不能碰其他文件、不能偷偷联网下载东西。</p>
+
+        <p>这个设计有两个好处：</p>
+
+        <p><strong>1. 安全可控</strong><br>
+        想象一下，你给Cowork授权访问"桌面/工作文档"文件夹。它能读、能写、能创建新文件，但永远碰不到"个人照片"或"财务记录"文件夹。即便它出错,影响范围也就是这一个文件夹。</p>
+
+        <p><strong>2. 简单直观</strong><br>
+        你不需要学什么复杂的权限系统。想让它帮忙？把文件扔进授权文件夹。不想让它碰？别放进去。就这么简单。</p>
+
+        <p>而且，Cowork运行在Apple Virtualization Framework的<strong>沙盒环境</strong>里。通俗说，就是给它造了一个虚拟的"小黑屋"，它在里面写代码、处理文件,但永远跑不出来影响你的系统。</p>
+
+        <div class="golden-sentence">
+            <strong>最好的权限设计，是让用户忘记权限的存在。</strong>
+        </div>
+
+        <h2>三、5分钟上手：从安装到第一个任务</h2>
+
+        <h3>3.1 准备工作（系统要求）</h3>
+
+        <p>想用Cowork，你需要：</p>
+        <ul>
+            <li><strong>macOS系统</strong> + <strong>Claude Desktop应用</strong>（目前只支持Mac，Windows版本在路上）</li>
+            <li><strong>Claude Max订阅</strong>（Pro用户可以申请加入等待列表）</li>
+            <li><strong>稳定的网络</strong>（Cowork需要联网工作，断网会话就断）</li>
+        </ul>
+
+        <p>如果你已经在用Claude Desktop，那就只差一个订阅升级。如果还没装,去claude.ai下载macOS客户端。</p>
+
+        <h3>3.2 启动Cowork三步走</h3>
+
+        <p>打开Claude Desktop后，你会看到顶部有两个标签："Chat"和"Cowork"。</p>
+
+        <p><strong>步骤1：点击"Cowork"</strong><br>
+        切换到任务模式。界面会从聊天窗口变成任务面板。</p>
+
+        <p><strong>步骤2：选择文件夹</strong><br>
+        在界面左下角，点击"选择文件夹"，授权Cowork访问你想让它操作的目录。建议先创建一个测试文件夹,比如"桌面/Cowork测试"，里面放几个不重要的文件。</p>
+
+        <p><strong>步骤3：描述任务</strong><br>
+        在输入框里，用自然语言描述你想做什么。不用写得很正式，就像跟同事说话一样。</p>
+
+        <div class="illustration">
+            <img src="02_cowork_startup.jpg" alt="Cowork启动流程">
+            <div class="illustration-caption">图2：Cowork三步启动流程</div>
+        </div>
+
+        <h3>3.3 你的第一个任务：整理桌面文件</h3>
+
+        <p>假设你的测试文件夹里有20个文件：有Word文档、有PDF、有几张图片、还有几个Excel表格，文件名乱七八糟。</p>
+
+        <p>你可以这样说：</p>
+
+        <pre><code>"扫描这个文件夹,按文件类型分类。
+文档类（Word、PDF）放到'文档'子文件夹，
+表格（Excel）放到'数据'子文件夹，
+图片放到'图片'子文件夹。
+然后把文件名统一改成小写，空格替换成下划线。"</code></pre>
+
+        <p>Cowork会先展示它的方案：</p>
+        <ul>
+            <li>发现了20个文件</li>
+            <li>计划创建3个子文件夹</li>
+            <li>列出移动规则</li>
+            <li>展示重命名示例</li>
+        </ul>
+
+        <p>你审核一下，觉得没问题，点"执行"。</p>
+
+        <p>然后你会看到进度条：</p>
+        <ul>
+            <li>✓ 创建子文件夹</li>
+            <li>✓ 分类移动文件（15/20）</li>
+            <li>✓ 重命名文件（20/20）</li>
+            <li>✓ 任务完成</li>
+        </ul>
+
+        <p>刷新文件夹，所有文件整整齐齐，分门别类，文件名规范统一。</p>
+
+        <p>你没动一根手指。</p>
+
+        <div class="golden-sentence">
+            <strong>好的工具，是让你忘记"工作"的存在，只记得"完成"的满足感。</strong>
+        </div>
+
+        <h2>四、适合用Cowork做什么？不适合做什么？</h2>
+
+        <h3>4.1 最擅长的4类任务</h3>
+
+        <p>Cowork不是万能的，但在这几个场景下，它的效率高得吓人：</p>
+
+        <p><strong>1. 批量文档处理</strong></p>
+        <ul>
+            <li>整理几百个文件，按日期/类型/客户分类</li>
+            <li>批量重命名（统一格式、添加前缀/后缀）</li>
+            <li>提取PDF里的特定信息生成汇总表</li>
+        </ul>
+
+        <p><strong>2. 数据对账和核对</strong></p>
+        <ul>
+            <li>对比两个Excel表格，标记差异</li>
+            <li>找出缺失数据，高亮显示</li>
+            <li>合并多个表格，去重排序</li>
+        </ul>
+
+        <p><strong>3. 内容生成</strong></p>
+        <ul>
+            <li>根据模板批量生成报告</li>
+            <li>翻译文档（保持格式）</li>
+            <li>总结会议记录，提取关键信息</li>
+        </ul>
+
+        <p><strong>4. 与企业工具集成</strong><br>
+        通过Connectors（连接器），Cowork可以对接：</p>
+        <ul>
+            <li>Slack（自动发送通知）</li>
+            <li>Jira（更新任务状态）</li>
+            <li>Google Drive（同步文件）</li>
+        </ul>
+
+        <h3>4.2 不建议用Cowork的场景</h3>
+
+        <p>有些事，Cowork能做，但不是最佳选择：</p>
+
+        <p><strong>实时对话</strong> → 用普通Claude更经济<br>
+        Cowork按任务消耗token，比聊天模式贵。如果只是问问题、要建议，打开Chat标签就行。</p>
+
+        <p><strong>单次代码编写</strong> → 用Claude Code更专业<br>
+        Cowork也能写代码，但它的强项是处理文件。如果你要开发一个项目、调试程序，Claude Code的终端环境更合适。</p>
+
+        <p><strong>高频API调用</strong><br>
+        Cowork每次执行任务都要启动虚拟机、加载环境。如果你需要每分钟调用一次，写个脚本更靠谱。</p>
+
+        <h3>4.3 Cowork vs Claude Code vs 普通Claude</h3>
+
+        <p>简单对比一下，帮你选对工具：</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>特性</th>
+                    <th>普通Claude</th>
+                    <th>Claude Code</th>
+                    <th>Cowork</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>界面</strong></td>
+                    <td>聊天窗口</td>
+                    <td>终端命令行</td>
+                    <td>图形界面</td>
+                </tr>
+                <tr>
+                    <td><strong>适合人群</strong></td>
+                    <td>所有人</td>
+                    <td>开发者</td>
+                    <td>非技术用户</td>
+                </tr>
+                <tr>
+                    <td><strong>核心能力</strong></td>
+                    <td>对话、写作、分析</td>
+                    <td>编程、调试、代码审查</td>
+                    <td>文件处理、任务自动化</td>
+                </tr>
+                <tr>
+                    <td><strong>文件访问</strong></td>
+                    <td>需要手动上传</td>
+                    <td>直接访问本地文件</td>
+                    <td>授权文件夹访问</td>
+                </tr>
+                <tr>
+                    <td><strong>执行能力</strong></td>
+                    <td>提供建议</td>
+                    <td>执行代码</td>
+                    <td>执行多步骤任务</td>
+                </tr>
+                <tr>
+                    <td><strong>使用成本</strong></td>
+                    <td>标准token消耗</td>
+                    <td>较高（运行环境）</td>
+                    <td>较高（智能体架构）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>选择建议：</strong></p>
+        <ul>
+            <li>问问题、要方案 → 普通Claude</li>
+            <li>写代码、调试程序 → Claude Code</li>
+            <li>整理文件、处理数据 → Cowork</li>
+        </ul>
+
+        <div class="illustration">
+            <img src="03_comparison_diagram.jpg" alt="三者对比">
+            <div class="illustration-caption">图3：Cowork、Claude Code、普通Claude对比</div>
+        </div>
+
+        <div class="golden-sentence">
+            <strong>工具在手中，方法在心中。选对工具，事半功倍。</strong>
+        </div>
+
+        <h2>五、新手必知的3个注意事项</h2>
+
+        <h3>5.1 关于安全性</h3>
+
+        <p>Cowork虽然运行在沙盒里，但它<strong>确实会修改你的文件</strong>。删除、移动、重命名——这些操作都是真实发生的。</p>
+
+        <div class="warning-box">
+            <strong>⚠️ 已知的安全风险：</strong>
+            <p>2026年1月，安全研究人员发现了一个<strong>提示注入漏洞</strong>。攻击者可以通过精心构造的文件名或文件内容,诱导Cowork执行非预期操作，甚至泄露敏感文档。</p>
+        </div>
+
+        <p>Anthropic承认了这个风险,并建议用户：</p>
+        <ul>
+            <li><strong>不要授权敏感文件夹</strong>（个人隐私、财务记录、密码文件）</li>
+            <li><strong>先在测试文件夹试验</strong>，确认任务逻辑没问题再应用到正式数据</li>
+            <li><strong>定期备份重要文件</strong>，以防误操作</li>
+        </ul>
+
+        <p>说实话，这个责任分配有点争议——把安全负担推给缺乏技术背景的普通用户，并不合理。但在官方彻底修复之前，小心为上。</p>
+
+        <div class="info-box">
+            <strong>✅ 最佳实践：</strong>
+            <ol>
+                <li>创建专门的"Cowork工作区"文件夹，只放需要处理的文件</li>
+                <li>重要数据先复制一份，用副本测试</li>
+                <li>任务执行前，仔细审核Cowork的方案</li>
+            </ol>
+        </div>
+
+        <h3>5.2 关于使用配额</h3>
+
+        <p>如果你是Max计划用户,可能会发现Cowork很"费"——几个任务下来,使用配额就见底了。</p>
+
+        <p><strong>为什么Cowork消耗多？</strong></p>
+        <ul>
+            <li>它要启动虚拟机环境</li>
+            <li>分解任务需要多轮推理</li>
+            <li>并行工作流意味着同时运行多个子智能体</li>
+            <li>每个文件的读取、分析都消耗token</li>
+        </ul>
+
+        <p>这是计算密集型任务的代价。</p>
+
+        <p><strong>如何优化使用：</strong></p>
+        <ol>
+            <li><strong>批量处理</strong>：不要一个任务一个任务提交，把相关工作合并到一次会话</li>
+            <li><strong>简单任务用Chat</strong>：不需要文件操作的事，别启动Cowork</li>
+            <li><strong>精准描述任务</strong>：说得越清楚，Cowork试错越少，消耗越低</li>
+        </ol>
+
+        <h3>5.3 关于应用保持打开</h3>
+
+        <p>这个很重要：<strong>Cowork工作时，Claude Desktop必须开着</strong>。</p>
+
+        <p>如果你关闭应用、电脑休眠、网络断开，任务会中断。虽然Cowork能处理"长时间任务"，但前提是环境稳定。</p>
+
+        <p><strong>建议：</strong></p>
+        <ul>
+            <li>提交任务前，确保接下来1小时不需要关机</li>
+            <li>复杂任务建议睡前或午休时运行</li>
+            <li>如果任务特别耗时,可以"离开然后回来查看"，但别关应用</li>
+        </ul>
+
+        <h2>六、开始你的Cowork之旅</h2>
+
+        <p>回到文章开头的场景。那38个PDF文件,我最后花了5分钟整理完：</p>
+
+        <p>我告诉Cowork："把会议记录、产品文档、合同分成三个文件夹,按日期重命名，格式是'YYYYMMDD_文件类型_简短描述'。如果文件里有日期信息就提取,没有就用修改时间。"</p>
+
+        <p>Cowork扫描、分类、提取信息、重命名、移动文件，一气呵成。我审核了一下它的方案，点了执行，然后去冲了杯咖啡。</p>
+
+        <p>回来时，桌面干净了。三个文件夹，每个文件名都规范统一。我知道哪些是会议记录、哪些是合同,不用再一个个点开确认。</p>
+
+        <p>这种感觉很微妙。不是"我学会了新技能"的成就感,而是"我不用再做这种事"的解放感。</p>
+
+        <p><strong>如果你也想试试：</strong></p>
+        <ol>
+            <li>从一个小任务开始——整理桌面、重命名照片、对比两个表格</li>
+            <li>描述任务时，想象你在跟同事说话，别太正式</li>
+            <li>审核方案时,看看Cowork的思路，学习它怎么分解任务</li>
+            <li>遇到问题随时调整，Cowork可以中途修正方向</li>
+        </ol>
+
+        <p>AI协作的时代已经来了。Cowork只是开始——它让非技术用户也能用上智能体的能力，把重复劳动交给机器，把时间留给更值得做的事。</p>
+
+        <p>工具会进化，但思路不会变：<strong>找到合适的工具，授权合适的范围，描述清楚你要什么，然后放手让AI干活。</strong></p>
+
+        <div class="golden-sentence">
+            <strong>AI不会取代你的工作，但会改变你对"工作"的定义。</strong>
+        </div>
+
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #E5E5E5;">
+
+        <div class="metadata">
+            <h3>📊 文章数据</h3>
+            <ul>
+                <li><strong>字数：</strong>约3200字</li>
+                <li><strong>段落：</strong>60+段落</li>
+                <li><strong>配图：</strong>3张</li>
+                <li><strong>金句：</strong>5个</li>
+                <li><strong>预计阅读时间：</strong>8分钟</li>
+                <li><strong>审核评分：</strong>8.4/10（优秀）</li>
+            </ul>
+        </div>
+
+        <div class="metadata">
+            <h3>🔗 参考来源</h3>
+            <ul>
+                <li><a href="https://support.claude.com/zh-CN/articles/13345190-cowork-入门指南" target="_blank">Claude官方支持文档 - Cowork入门指南</a></li>
+                <li><a href="https://artificiallawyer.com" target="_blank">Artificial Lawyer - Claude Cowork分析</a></li>
+                <li><a href="https://darrelltw.com" target="_blank">技术评测 - Cowork使用体验</a></li>
+                <li><a href="https://apiyi.com" target="_blank">API易 - Cowork深度解析</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="copy-btn" onclick="copyToClipboard()">📋 一键复制到公众号</button>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function copyToClipboard() {
+            const container = document.querySelector('.container');
+            const range = document.createRange();
+            range.selectNode(container);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                document.execCommand('copy');
+                showToast('✅ 复制成功！可以直接粘贴到公众号编辑器');
+            } catch (err) {
+                showToast('❌ 复制失败，请手动选择内容复制');
+            }
+
+            window.getSelection().removeAllRanges();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

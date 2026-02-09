@@ -1,0 +1,50 @@
+[
+  {
+    "prompt": "Architecture diagram showing Clawdbot as a central hub connecting to Feishu chat app and multiple AI models (Qwen, GLM, Minimax). Use remote control metaphor - one remote controlling multiple devices. Simple flowchart style with arrows.",
+    "filename": "01_architecture.jpg"
+  },
+  {
+    "prompt": "Terminal command line interface showing the installation process of Clawdbot. Display command prompt with 'curl' command and progress indicators. Clean, simple terminal window mockup.",
+    "filename": "02_installation_flow.jpg"
+  },
+  {
+    "prompt": "Step-by-step installation process visualization. 8 numbered steps from 1 to 8, showing: command input, Yes/No choices, Quick Start selection, model selection, browser authorization, Skip options. Use simple boxes and arrows connecting each step.",
+    "filename": "03_installation_steps.jpg"
+  },
+  {
+    "prompt": "Feishu open platform homepage interface mockup. Highlight the 'Create Enterprise App' button in the top right corner. Show simplified navigation menu and main content area. Label in Chinese: 创建企业自建应用.",
+    "filename": "04_feishu_platform.jpg"
+  },
+  {
+    "prompt": "Feishu app management interface showing left sidebar with 'Bot' menu item highlighted. Arrow pointing to 'Add Bot' button. Show configuration panel area. Simple interface wireframe.",
+    "filename": "05_add_bot.jpg"
+  },
+  {
+    "prompt": "Permissions checklist visualization. 3 checkbox items with names: 1) im:message.group_at_msg (receive group @ messages), 2) im:message.p2p_msg (receive private messages), 3) im:message:send_as_bot (send as bot). Each with a green checkmark. Clean checklist style.",
+    "filename": "06_permissions.jpg"
+  },
+  {
+    "prompt": "Event subscription interface mockup. Show 'Event Subscription' menu item highlighted, callback URL input box (marked as 'leave empty for now'), and 'Add Event' section below. Simple form layout.",
+    "filename": "07_event_subscription.jpg"
+  },
+  {
+    "prompt": "Credentials page interface showing two key pieces of information highlighted: 'App ID' (example: cli_a1b2c3d4e5f6g7h8) and 'App Secret' (with 'Show' button). Use box outlines and arrows to emphasize these two fields.",
+    "filename": "08_credentials.jpg"
+  },
+  {
+    "prompt": "Clawdbot web management interface mockup. Show left sidebar with 'Channel Management' menu highlighted. Main area shows plugin installation interface. Clean dashboard layout.",
+    "filename": "09_clawdbot_interface.jpg"
+  },
+  {
+    "prompt": "Dual interface comparison showing callback URL flow. Left side: Clawdbot interface with webhook URL displayed. Right side: Feishu event subscription page with URL input field. Arrow showing copy-paste action from left to right. Split screen layout.",
+    "filename": "10_callback_flow.jpg"
+  },
+  {
+    "prompt": "Feishu chat conversation scene. Show simple chat bubbles: user sends message 'Hello' to bot, bot responds with friendly reply. Use simplified chat interface with message bubbles and simple avatar icons. Cheerful, friendly atmosphere.",
+    "filename": "11_chat_success.jpg"
+  },
+  {
+    "prompt": "Troubleshooting decision tree flowchart. Starting from 'Bot not responding', branching to check points: Check permissions, Check callback URL, Check service running, Check logs. Use simple decision tree with yes/no branches and action boxes.",
+    "filename": "12_troubleshooting.jpg"
+  }
+]

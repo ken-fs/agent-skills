@@ -1,0 +1,20 @@
+{
+  "images": [
+    {
+      "filename": "01_agent_workflow.jpg",
+      "prompt": "Pure hand-drawn line art illustration on warm beige background (#F5F0E6). A circular workflow diagram showing AI agent's core loop: Perception (eye icon) → Decision (brain icon with gears) → Action (hand with tools) → Reflection (mirror icon) → back to Perception. Use single-color thin lines (#3D3D3D), organic hand-drawn quality with slight wobble. No fills, no gradients, no shadows. Minimalist style. Add small English labels: 'Sense', 'Think', 'Act', 'Reflect'. 16:9 ratio."
+    },
+    {
+      "filename": "02_multi_agent_collaboration.jpg",
+      "prompt": "Pure hand-drawn line art illustration on warm beige background (#F5F0E6). Three AI agents working together: Agent A (with database icon) collecting data, Agent B (with magnifying glass) analyzing, Agent C (with document) writing report. Connect them with flowing arrows showing collaboration. Use single-color thin lines (#3D3D3D), hand-drawn organic style. No fills except very light beige tints. Add simple labels: 'Collect', 'Analyze', 'Report'. 16:9 ratio."
+    },
+    {
+      "filename": "03_tool_selection.jpg",
+      "prompt": "Pure hand-drawn line art illustration on warm beige background (#F5F0E6). A decision tree showing how to choose AI platforms: Top node 'Your Need', branching to 'No Code' (showing simplified interface icons), 'Low Code' (showing code blocks), and 'Enterprise' (showing building). Use single-color thin lines (#3D3D3D), hand-drawn sketch style with organic lines. Minimal text labels in handwriting style. 4:3 ratio."
+    },
+    {
+      "filename": "cover_gradient_glass.png",
+      "prompt": "Modern gradient glass morphism design. Title '2026 AI智能体元年' in bold Chinese characters. Abstract flowing shapes representing AI agents, soft gradient from warm coral to deep purple. Frosted glass effect with subtle transparency. Clean, professional, tech-forward aesthetic. 16:9 ratio."
+    }
+  ]
+}

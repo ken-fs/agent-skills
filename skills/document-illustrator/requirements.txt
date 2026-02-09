@@ -1,0 +1,10 @@
+# Document Illustrator 依赖库
+
+# Google Gemini API 客户端
+google-genai>=0.3.0
+
+# 环境变量管理
+python-dotenv>=1.0.0
+
+# 图片处理
+Pillow>=10.0.0
