@@ -221,6 +221,10 @@ def generate_image(title, content, style_prompt, output_path, aspect_ratio="16:9
         # 保存图片
         for part in response.parts:
             if hasattr(part, 'inline_data') and part.inline_data is not None:
+                # 检查数据长度，跳过空数据（用于过滤思考过程的 Parts）
+                if not part.inline_data.data or len(part.inline_data.data) == 0:
+                    continue
+
                 # 确保输出目录存在
                 output_dir = os.path.dirname(output_path)
                 if output_dir:
@@ -232,7 +236,7 @@ def generate_image(title, content, style_prompt, output_path, aspect_ratio="16:9
 
                 return output_path
 
-        print(f"警告: 图片生成失败 - 未收到图片数据", file=sys.stderr)
+        print(f"警告: 图片生成失败 - 未找到有效的图片数据", file=sys.stderr)
         return None
 
     except Exception as e:

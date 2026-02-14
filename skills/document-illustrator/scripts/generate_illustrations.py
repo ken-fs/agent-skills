@@ -628,6 +628,10 @@ def generate_illustration(section_title, section_content, style_prompt, output_d
         if response and hasattr(response, 'parts') and response.parts:
             for part in response.parts:
                 if hasattr(part, 'inline_data') and part.inline_data is not None:
+                    # 检查数据长度，跳过空数据
+                    if not part.inline_data.data or len(part.inline_data.data) == 0:
+                        continue
+
                     image_path = os.path.join(output_dir, f"illustration-{index:02d}.png")
 
                     # 保存图片数据
@@ -636,7 +640,7 @@ def generate_illustration(section_title, section_content, style_prompt, output_d
 
                     return image_path
 
-        print(f"警告: 第 {index} 张图片生成失败 - 未收到图片数据", file=sys.stderr)
+        print(f"警告: 第 {index} 张图片生成失败 - 未收到有效的图片数据", file=sys.stderr)
         return None
 
     except Exception as e:

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLM-5.0 实测：国产 AI 的“Agentic”时刻</title>
+    <style>
+        :root {
+            --primary-color: #953800;
+            --bg-color: #FFFFFF;
+            --text-color: #333333;
+            --heading-color: #1A1A1A;
+            --quote-bg: #FFF8F0;
+            --quote-border: #953800;
+            --code-bg: #F5F5F5;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: #F2F2F2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 677px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 30px;
+            line-height: 1.4;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background-color: var(--primary-color);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        blockquote {
+            background-color: var(--quote-bg);
+            border-left: 4px solid var(--quote-border);
+            margin: 30px 0;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            color: #555;
+            position: relative;
+        }
+        
+        blockquote::before {
+            content: '“';
+            font-size: 40px;
+            color: var(--primary-color);
+            opacity: 0.2;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-family: serif;
+        }
+        
+        strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .illustration {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .illustration img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 4px solid #F5F0E6;
+            margin-bottom: 10px;
+        }
+        
+        .illustration-caption {
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .highlight-box {
+            background-color: #F8F9FA;
+            border: 1px solid #E9ECEF;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        /* 复制按钮样式 */
+        .copy-button-container {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            pointer-events: none; /* 让容器不阻挡点击，只有按钮阻挡 */
+        }
+        
+        .copy-button {
+            pointer-events: auto;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(149, 56, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(149, 56, 0, 0.4);
+        }
+        
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        /* Toast 提示 */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+            pointer-events: none;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="article-content">
+        <h1>GLM-5.0 实测：国产 AI 的“Agentic”时刻，甚至有点“太主动”了？</h1>
+        
+        <h2>开篇导入：当 AI 开始写操作系统</h2>
+        
+        <div class="illustration">
+            <img src="./image1.png" alt="GLM-5.0 Producer Chair">
+            <p class="illustration-caption">图 1: 既是导演也是执行者</p>
+        </div>
+        
+        <p>上周看到一个演示视频，我得承认，我那种“见过大世面”的淡定有点装不下去了。</p>
+        
+        <p>视频里，一位开发者对着屏幕敲下一行指令，然后双手离开键盘。屏幕上，GLM-5.0 开始疯狂输出代码、调试、重构。几分钟后，一个像素级复刻的 macOS Sonoma 桌面操作系统跑了起来——动态壁纸、Dock 栏动画、窗口管理，甚至那个经典的系统设置界面，都像模像样。</p>
+        
+        <p>这不仅仅是“写代码”，这是在“构建系统”。</p>
+        
+        <p>以前我们用 ChatGPT，就像在和一个博学的教授聊天。我们问，它答。虽然它懂得多，但手不动。现在用 GLM-5.0，感觉像招了个想通过试用期的高级工程师。你给个目标，它自己拆解任务、自己写测试、甚至自己给自己找 Bug。</p>
+        
+        <blockquote>
+            以前我们把 AI 当搜索引擎，现在它想当你的“外包团队”。
+        </blockquote>
+        
+        <h2>参数之外：什么是“Agentic Engineering”？</h2>
+        
+        <div class="illustration">
+            <img src="./image2.png" alt="GLM-5.0 System Gears">
+            <p class="illustration-caption">图 2: 系统工程能力的封装</p>
+        </div>
+        
+        <p>这次 GLM-5.0 发布，智谱没怎么吹传统的“跑分”，而是抛出了一个新词：<strong>Agentic Engineering（代理工程）</strong>。</p>
+        
+        <p>乍一听像营销黑话，但仔细看技术文档，你会发现这次的“肌肉”确实不一样。7440 亿参数（744B），这数字听着吓人。但真正干活的，是其中的 400 亿（40B）激活参数。这得益于 MoE（混合专家模型）架构——就像一个 256 人的专家团队，遇到数学题数学专家上，遇到写代码程序员上，每次只有 8 个人在干活，效率极高。</p>
+        
+        <p>更硬核的是它的训练框架——“Slime Framework”。这不是游戏里的史莱姆，而是一套异步强化学习系统。它让模型在训练阶段就经历了海量的“试错-反馈-修正”循环。</p>
+        
+        <p>这就是为什么它能处理 20 万字（200K）的上下文。这不是单纯的记忆力，而是理解复杂系统逻辑的能力。而且，这一切都是在国产的华为昇腾芯片上训练出来的。在算力封锁的今天，这事儿本身就挺提气的。</p>
+        
+        <blockquote>
+            参数量决定了它懂多少，架构决定了它能干多好。
+        </blockquote>
+        
+        <h2>实战体验：这个“同事”有点猛</h2>
+        
+        <div class="illustration">
+            <img src="./image3.png" alt="GLM-5.0 Coding Deadline">
+            <p class="illustration-caption">图 3: 为了有用而自我设定 Deadline</p>
+        </div>
+        
+        <p>光看文档没用，拉出来溜溜才知道。我拿它试了一个真实的脏活：把一个老旧的 Express 后端路由迁移到新框架。</p>
+        
+        <p>如果是以前的模型，我得把代码一段段喂给它，还要像哄孩子一样检查每一行。但 GLM-5.0 的表现有点“反常”。我不只是让它“写代码”，而是让它“完成迁移”。</p>
+        
+        <p>它先是扫描了整个项目目录（是的，它能理解文件结构），然后给出了一个 5 步计划。最逗的是，它在计划里自己加了一句：“建议先备份 routes 文件夹，以免回滚困难。”</p>
+        
+        <p><strong>它居然还会为了“有用”而自我设定 Deadline。</strong></p>
+        
+        <p>在使用过程中，我发现它有个独特的性格：<strong>Over-initiative（过度主动）</strong>。有时候我只是想问个 API 的用法，它不仅给了文档，还顺手写了个 Demo，甚至指出了我当前配置里可能存在的坑。</p>
+        
+        <p>这种感觉很奇妙。它不再是一个冷冰冰的问答机器，更像是一个急于证明自己的新同事。虽然有时候热情得让人招架不住（比如给我列了一堆我没要求的优化建议），但这种“自驱力”，正是 Agentic 的核心。</p>
+        
+        <blockquote>
+            它不只是想回答你的问题，它想解决你的麻烦。
+        </blockquote>
+        
+        <h2>落地与代价：1.5TB 的重量</h2>
+        
+        <div class="illustration">
+            <img src="./image4.png" alt="GLM-5.0 Deployment Weight">
+            <p class="illustration-caption">图 4: 1.5TB 的重量与云端的轻便</p>
+        </div>
+        
+        <p>虽然吹了这么多，但想把这位“大神”请回家，门槛可不低。下载权重文件的时候，我看着那个 <strong>1.5TB</strong> 的进度条，硬盘都在颤抖。这哪里是模型，简直是数据洪流。</p>
+        
+        <p>对于个人开发者来说，本地部署 GLM-5.0 几乎是不可能的任务——除非你家里有矿，或者有几十张 A100。</p>
+        
+        <div class="highlight-box">
+            <p><strong>那怎么用？</strong></p>
+            <ol>
+                <li><strong>vLLM 部署</strong>：还是得上云。利用 vLLM 的优化，可以在多卡环境下稍微“优雅”地跑起来。</li>
+                <li><strong>量化方案</strong>：社区里已经有大佬在做 4-bit 甚至 2-bit 的量化版，虽然智力会打折，但起码能跑通。</li>
+                <li><strong>Z.ai 平台</strong>：最省事的还是直接用智谱的官方平台。虽然要花钱，但省去了维护服务器的烦恼。</li>
+            </ol>
+        </div>
+        
+        <p>除了硬件门槛，还有一个小毛病：<strong>长对话中的“语气漂移”</strong>。聊久了，它有时候会忘掉最初设定的人设，从“严谨工程师”突然变成“知心大姐姐”。不过考虑到 200K 的上下文压力，这点小瑕疵也情有可原。</p>
+        
+        <blockquote>
+            智能的重量，目前还需要算力来承载。
+        </blockquote>
+        
+        <h2>总结与展望</h2>
+        
+        <p>回到开篇那个操作系统。其实我们不需要 AI 真的去写一个 macOS，我们需要的是它能理解“系统”这个概念。</p>
+        
+        <p>GLM-5.0 最大的意义，不在于它跑分多高，而在于它展示了一种可能性：<strong>AI 正在从“副驾驶”变成“主驾驶”。</strong> 它不再满足于帮你补全一行代码，它想帮你架构一个系统。</p>
+        
+        <p>对于我们开发者来说，这意味着什么？意味着“搬砖”的活儿，以后真就没人干了。以后拼的，是谁能更好地指挥这个“硅基团队”。</p>
+        
+        <p>它不完美，有点重，有点贵，偶尔还热情过头。但它是一个值得尊重的“同事”。</p>
+        
+        <blockquote>
+            AI不会取代你。但会用AI的人，会。
+        </blockquote>
+    </div>
+
+    <div class="copy-button-container">
+        <button class="copy-button" onclick="copyArticle()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 6.9V11.1C22 14.6 20.6 16 17.1 16H16V12.9C16 9.4 14.6 8 11.1 8H8V6.9C8 3.4 9.4 2 12.9 2H17.1C20.6 2 22 3.4 22 6.9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            一键复制到公众号
+        </button>
+    </div>
+
+    <div class="toast" id="toast">✅ 已复制！可直接粘贴到微信公众号</div>
+
+    <script>
+        function copyArticle() {
+            const container = document.getElementById('article-content');
+            
+            // 创建临时div用于复制
+            const tempDiv = document.createElement('div');
+            tempDiv.style.position = 'absolute';
+            tempDiv.style.left = '-9999px';
+            document.body.appendChild(tempDiv);
+            
+            // 克隆内容
+            const clone = container.cloneNode(true);
+            
+            // 内联所有样式到元素上 (关键步骤，确保粘贴后样式保留)
+            applyInlineStyles(clone);
+            
+            tempDiv.appendChild(clone);
+            
+            // 选中新创建的内容
+            const range = document.createRange();
+            range.selectNodeContents(tempDiv);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            // 执行复制
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Copy failed', err);
+                alert('复制失败，请手动复制');
+            }
+            
+            // 清理
+            selection.removeAllRanges();
+            document.body.removeChild(tempDiv);
+        }
+        
+        function applyInlineStyles(element) {
+            // 这里我们需要模拟内联样式，因为document.execCommand('copy')复制的是带有inline style的HTML
+            // 简单实现：将computed styles应用到inline styles (这可能很慢，这里简化处理核心样式)
+            
+            // 定义核心映射
+            const tagStyles = {
+                'h1': 'font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 30px; line-height: 1.4; text-align: center;',
+                'h2': 'font-size: 20px; font-weight: 700; color: #1A1A1A; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #EEE; padding-bottom: 10px;',
+                'p': 'margin-bottom: 20px; text-align: justify; font-size: 17px; line-height: 1.8; color: #333333;',
+                'blockquote': 'background-color: #FFF8F0; border-left: 4px solid #953800; margin: 30px 0; padding: 15px 20px; border-radius: 0 8px 8px 0; color: #555;',
+                'strong': 'color: #953800; font-weight: 700;',
+                'img': 'width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 4px solid #F5F0E6; margin-bottom: 10px; display: block;'
+            };
+            
+            const allElements = element.querySelectorAll('*');
+            allElements.forEach(el => {
+                const tagName = el.tagName.toLowerCase();
+                if (tagStyles[tagName]) {
+                    // 合并现有style和默认style
+                    const existingStyle = el.getAttribute('style') || '';
+                    el.setAttribute('style', tagStyles[tagName] + existingStyle);
+                }
+                
+                // 特殊处理 caption
+                if (el.classList.contains('illustration-caption')) {
+                    el.setAttribute('style', 'font-size: 14px; color: #888; text-align: center; margin-top: 8px; display: block;');
+                }
+            });
+        }
+        
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
