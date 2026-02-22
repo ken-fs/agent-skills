@@ -1,0 +1,1 @@
+/Users/wangzf/Desktop/ken/Code/Project/agent-skills/.agents/skills/slack-gif-creator/SKILL.md
