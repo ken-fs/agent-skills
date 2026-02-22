@@ -1,52 +1,82 @@
 import Link from "next/link";
-import {
-  FileJson,
-  Binary,
-  Link as LinkIcon,
-  KeyRound,
-  Fingerprint,
-  FileText,
-  Search,
-  ArrowRight,
-} from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Code2, FileJson, Binary, Link as LinkIcon, KeyRound, Fingerprint, FileText, ImageIcon, Search, ArrowRight } from "lucide-react";
 
+// Categorized tools list matching the original concept
 const tools = [
   {
-    title: "JSON Formatter",
-    description: "Validate, format, and minify JSON data automatically.",
-    href: "/json-formatter",
-    icon: FileJson,
+    category: "Media & Graphic",
+    items: [
+      {
+        title: "Image Compressor & Converter",
+        description: "Resize, compress, and convert (WebP, JPG, PNG) strictly locally. Zero server uploads.",
+        icon: ImageIcon,
+        href: "/image-compressor",
+      },
+    ],
   },
   {
-    title: "Base64 Encoder",
-    description: "Encode and decode data using Base64 standard.",
-    href: "/base64",
-    icon: Binary,
+    category: "Formatters",
+    items: [
+      {
+        title: "JSON Formatter",
+        description: "Validate, format, minify, and beautify your JSON data instantly.",
+        icon: FileJson,
+        href: "/json-formatter",
+      },
+    ],
   },
   {
-    title: "URL Encoder",
-    description: "Encode and decode URLs for safe transmission.",
-    href: "/url-encoder",
-    icon: LinkIcon,
+    category: "Encoders / Decoders",
+    items: [
+      {
+        title: "Base64 Encoder/Decoder",
+        description: "Encode and decode text or images to Base64 format.",
+        icon: Binary,
+        href: "/base64",
+      },
+      {
+        title: "URL Encoder/Decoder",
+        description: "Convert characters to their corresponding URL-encoded values.",
+        icon: LinkIcon,
+        href: "/url-encoder",
+      },
+    ],
   },
   {
-    title: "JWT Debugger",
-    description: "Decode, verify, and inspect JSON Web Tokens.",
-    href: "/jwt-debugger",
-    icon: KeyRound,
+    category: "Generators",
+    items: [
+      {
+        title: "UUID Generator",
+        description: "Generate universally unique identifiers (UUIDs) version 1 or 4.",
+        icon: Fingerprint,
+        href: "/uuid",
+      },
+      {
+        title: "Lorem Ipsum",
+        description: "Generate placeholder text for varying lengths.",
+        icon: FileText,
+        href: "/lorem-ipsum",
+      },
+    ],
   },
   {
-    title: "UUID Generator",
-    description: "Generate unique identifiers (UUID/GUID) in bulk.",
-    href: "/uuid",
-    icon: Fingerprint,
-  },
-  {
-    title: "Lorem Ipsum",
-    description: "Generate placeholder text for rapid UI prototyping.",
-    href: "/lorem-ipsum",
-    icon: FileText,
+    category: "Text",
+    items: [
+      {
+        title: "JWT Debugger",
+        description: "Decode and inspect JSON Web Tokens safely in the browser.",
+        icon: KeyRound,
+        href: "/jwt-debugger",
+      },
+      {
+        title: "Text Diff",
+        description: "Compare two texts and highlight the differences.",
+        icon: Code2,
+        href: "/text-diff",
+      },
+    ],
   },
 ];
 
@@ -94,7 +124,7 @@ export default function Home() {
 
       {/* Bento Grid layout */}
       <section className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full px-4 z-10">
-        {tools.map((tool) => (
+        {tools.flatMap(c => c.items).map((tool) => (
           <Link href={tool.href} key={tool.title} className="group">
             <div className="relative h-full overflow-hidden rounded-3xl glass-panel glass-panel-hover p-8 group-hover:cursor-pointer flex flex-col justify-between">
               {/* Internal Glass Highlight */}

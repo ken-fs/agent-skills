@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +36,16 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
-        <div className="relative flex min-h-screen flex-col">
-          <Navbar />
-          <main className="flex-1 container mx-auto px-4 md:px-8">{children}</main>
-          <Footer />
-        </div>
-        <Toaster />
+        <TooltipProvider delayDuration={100}>
+          {children}
+        </TooltipProvider>
+        <Toaster 
+          toastOptions={{
+            classNames: {
+              error: '!bg-red-500 !text-white !border-red-600',
+            }
+          }}
+        />
       </body>
     </html>
   );
