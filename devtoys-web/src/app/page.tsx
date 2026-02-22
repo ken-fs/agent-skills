@@ -9,7 +9,6 @@ import {
   Search,
   ArrowRight,
 } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 const tools = [
@@ -18,83 +17,73 @@ const tools = [
     description: "Validate, format, and minify JSON data automatically.",
     href: "/json-formatter",
     icon: FileJson,
-    color: "text-white",
-    bgColor: "bg-white/10 dark:bg-white/5",
   },
   {
     title: "Base64 Encoder",
     description: "Encode and decode data using Base64 standard.",
     href: "/base64",
     icon: Binary,
-    color: "text-white",
-    bgColor: "bg-white/10 dark:bg-white/5",
   },
   {
     title: "URL Encoder",
     description: "Encode and decode URLs for safe transmission.",
     href: "/url-encoder",
     icon: LinkIcon,
-    color: "text-white",
-    bgColor: "bg-white/10 dark:bg-white/5",
   },
   {
     title: "JWT Debugger",
     description: "Decode, verify, and inspect JSON Web Tokens.",
     href: "/jwt-debugger",
     icon: KeyRound,
-    color: "text-white",
-    bgColor: "bg-white/10 dark:bg-white/5",
   },
   {
     title: "UUID Generator",
     description: "Generate unique identifiers (UUID/GUID) in bulk.",
     href: "/uuid",
     icon: Fingerprint,
-    color: "text-white",
-    bgColor: "bg-white/10 dark:bg-white/5",
   },
   {
     title: "Lorem Ipsum",
-    description: "Generate placeholder text for your designs.",
+    description: "Generate placeholder text for rapid UI prototyping.",
     href: "/lorem-ipsum",
     icon: FileText,
-    color: "text-white",
-    bgColor: "bg-white/10 dark:bg-white/5",
   },
 ];
 
 export default function Home() {
   return (
-    <div className="container relative flex flex-col items-center justify-center py-12 space-y-12 md:py-24 lg:py-32">
-      {/* iOS Liquid Glass Mesh Background */}
-      <div className="fixed inset-0 -z-10 h-full w-full bg-black overflow-hidden">
-        {/* Animated Orbs for Liquid Effect */}
-        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-purple-600/40 mix-blend-screen blur-[120px] animate-blob" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/40 mix-blend-screen blur-[120px] animate-blob animation-delay-2000" />
-        <div className="absolute top-[30%] left-[20%] w-[50vw] h-[50vw] rounded-full bg-cyan-500/30 mix-blend-screen blur-[100px] animate-blob animation-delay-4000" />
+    <div className="container mx-auto relative flex flex-col items-center justify-center py-16 space-y-16 md:py-24 lg:py-32">
+      {/* Deep Dark Ambient Background */}
+      <div className="fixed inset-0 -z-10 h-full w-full bg-[#0F172A] overflow-hidden">
+        {/* Subtle glowing orbs for Glassmorphism Depth */}
+        <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1E293B]/60 mix-blend-screen blur-[120px] animate-blob" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#22C55E]/10 mix-blend-screen blur-[120px] animate-blob animation-delay-2000" />
       </div>
 
-      <section className="mx-auto flex max-w-[980px] flex-col items-center gap-6 text-center">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-xl">
-          Developer Tools
+      <section className="mx-auto flex max-w-[980px] flex-col items-center gap-6 text-center z-10">
+        <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm font-medium text-[#F8FAFC]/80 backdrop-blur-md mb-4">
+          ✨ The ultimate tool suite for developers
+        </div>
+        <h1 className="text-5xl font-extrabold tracking-tight text-[#F8FAFC] sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-xl font-heading leading-tight">
+          Tools for <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-[#22C55E]">Builders</span>
         </h1>
-        <p className="max-w-[700px] text-lg font-medium text-white/80 sm:text-xl drop-shadow-md">
-          Build. Debug. Ship. Faster.
+        <p className="max-w-[700px] text-lg font-medium text-[#F8FAFC]/70 sm:text-xl drop-shadow-md">
+          A minimalist, privacy-first developer companion. Build, debug, and ship faster.
         </p>
 
         <div className="relative w-full max-w-2xl mt-8">
           <div className="relative group">
             {/* Glowing input border effect */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-white/20 to-white/0 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
-            <div className="relative flex items-center bg-white/10 hover:bg-white/15 backdrop-blur-3xl rounded-2xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all duration-300">
-              <Search className="ml-4 h-6 w-6 text-white/70" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#1E293B] to-[#22C55E]/30 rounded-2xl blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
+            <div className="relative flex items-center glass-panel rounded-2xl group-hover:bg-[#1E293B]/50">
+              <Search className="ml-4 h-6 w-6 text-[#F8FAFC]/50" />
               <Input
                 type="text"
                 placeholder="Search tools (Press ⌘K)"
-                className="border-0 shadow-none focus-visible:ring-0 pl-4 h-16 text-lg bg-transparent text-white placeholder:text-white/50"
+                className="border-0 shadow-none focus-visible:ring-0 pl-4 h-16 text-lg bg-transparent text-[#F8FAFC] placeholder:text-[#F8FAFC]/40"
               />
               <div className="pr-4 hidden sm:block">
-                <kbd className="pointer-events-none inline-flex h-8 select-none items-center gap-1 rounded-[6px] border border-white/20 bg-white/10 px-2 font-mono text-[12px] font-medium text-white/80 backdrop-blur-md">
+                <kbd className="pointer-events-none inline-flex h-8 select-none items-center gap-1 rounded-[6px] border border-white/10 bg-black/20 px-2 font-mono text-[12px] font-medium text-[#F8FAFC]/60 backdrop-blur-md">
                   <span className="text-sm">⌘</span>K
                 </kbd>
               </div>
@@ -103,26 +92,29 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full px-4">
+      {/* Bento Grid layout */}
+      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full px-4 z-10">
         {tools.map((tool) => (
           <Link href={tool.href} key={tool.title} className="group">
-            <div className="relative h-full overflow-hidden rounded-3xl bg-white/10 backdrop-blur-[40px] border border-white/20 p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-2 hover:bg-white/20 hover:border-white/40 hover:shadow-[0_16px_48px_0_rgba(0,0,0,0.4)]">
+            <div className="relative h-full overflow-hidden rounded-3xl glass-panel glass-panel-hover p-8 group-hover:cursor-pointer flex flex-col justify-between">
               {/* Internal Glass Highlight */}
-              <div className="absolute inset-0 z-[-1] bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-3xl" />
+              <div className="absolute inset-0 z-[-1] bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-3xl" />
               
-              <div
-                className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl ${tool.bgColor} ${tool.color} border border-white/10 shadow-inner`}
-              >
-                <tool.icon className="h-8 w-8 drop-shadow-md" />
+              <div>
+                <div
+                  className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F172A] text-[#F8FAFC] border border-white/5 shadow-inner group-hover:text-[#22C55E] group-hover:bg-[#1E293B] transition-all duration-300`}
+                >
+                  <tool.icon className="h-7 w-7 drop-shadow-md" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold tracking-tight text-[#F8FAFC] drop-shadow-sm font-heading">
+                  {tool.title}
+                </h3>
+                <p className="text-base text-[#F8FAFC]/60 mb-6 font-medium leading-relaxed">
+                  {tool.description}
+                </p>
               </div>
-              <h3 className="mb-3 text-2xl font-semibold tracking-tight text-white drop-shadow-sm">
-                {tool.title}
-              </h3>
-              <p className="text-base text-white/70 mb-6 font-medium leading-relaxed">
-                {tool.description}
-              </p>
-              <div className="flex items-center text-sm font-bold text-white opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-                Open Tool <ArrowRight className="ml-2 h-5 w-5" />
+              <div className="flex items-center text-sm font-bold text-[#22C55E] opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 mt-auto">
+                Launch <ArrowRight className="ml-2 h-5 w-5" />
               </div>
             </div>
           </Link>

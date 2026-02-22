@@ -27,17 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-[#0F172A] text-[#F8FAFC] font-sans antialiased selection:bg-[#22C55E]/30",
           geistSans.variable,
           geistMono.variable
         )}
       >
-        <div className="relative flex min-h-screen flex-col bg-background">
+        <div className="relative flex min-h-screen flex-col">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 container mx-auto px-4 md:px-8">{children}</main>
           <Footer />
         </div>
         <Toaster />
