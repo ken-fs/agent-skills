@@ -3,8 +3,12 @@ import { JsonFormatterClient } from "@/components/tools/json/JsonFormatterClient
 import { ToolLayout } from "@/components/layout/ToolLayout";
 
 export const metadata: Metadata = {
-  title: "JSON Formatter - DevToys",
-  description: "Validate, format, minify, and beautify your JSON data with this free online tool.",
+  title: "Free Online JSON Formatter and Validator",
+  description: "Validate, format, minify, and beautify your JSON data instantly with this free online developer tool. No data leaves your browser.",
+  keywords: ["JSON Formatter", "JSON Validator", "JSON Beautifier", "JSON Minifier", "Online JSON Tool", "Developer Tools"],
+  alternates: {
+    canonical: "/json-formatter",
+  },
 };
 
 export default function JsonFormatterPage() {

@@ -206,12 +206,12 @@ export function JsonFormatterClient() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-[#1E293B] border-white/10 text-[#F8FAFC]">
             <DropdownMenuLabel>String Overrides</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleEscape} className="cursor-pointer focus:bg-[#22C55E]/20">Escape (转义)</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleUnescape} className="cursor-pointer focus:bg-[#22C55E]/20">Unescape (去转义)</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleEscape} className="cursor-pointer focus:bg-[#22C55E]/20">Escape</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleUnescape} className="cursor-pointer focus:bg-[#22C55E]/20">Unescape</DropdownMenuItem>
             <DropdownMenuSeparator className="bg-white/10"/>
             <DropdownMenuLabel>Unicode</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleUnicodeDecode} className="cursor-pointer focus:bg-[#22C55E]/20">Unicode Decode (转中文)</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleUnicodeEncode} className="cursor-pointer focus:bg-[#22C55E]/20">Unicode Encode (转Unicode)</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleUnicodeDecode} className="cursor-pointer focus:bg-[#22C55E]/20">Unicode Decode</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleUnicodeEncode} className="cursor-pointer focus:bg-[#22C55E]/20">Unicode Encode</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 

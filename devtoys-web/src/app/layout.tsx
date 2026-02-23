@@ -18,8 +18,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevToys - Developer Tools Reimagined",
-  description: "A modern, privacy-first developer tool suite.",
+  metadataBase: new URL("https://devtoys.io"),
+  title: {
+    template: "%s | DevToys",
+    default: "DevToys - Developer Tools Reimagined",
+  },
+  description: "A modern, privacy-first developer tool suite. Free online tools including JSON formatter, base64 encoder, UUID generator, and more. No backend, secure, and fast.",
+  keywords: ["developer tools", "JSON formatter", "online tools", "dev utils", "privacy first"],
+  authors: [{ name: "DevToys Team" }],
+  creator: "DevToys Team",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://devtoys.io",
+    title: "DevToys - Developer Tools Reimagined",
+    description: "A modern, privacy-first developer tool suite.",
+    siteName: "DevToys",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DevToys - Developer Tools Reimagined",
+    description: "A modern, privacy-first developer tool suite.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
