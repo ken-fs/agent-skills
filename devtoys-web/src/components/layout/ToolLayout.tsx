@@ -9,6 +9,7 @@ import {
   Command,
   Home,
   Image as ImageIcon,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -20,6 +21,7 @@ import {
 const tools = [
   { href: "/", icon: Home, label: "Home" },
   { href: "/json-formatter", icon: FileJson, label: "JSON Formatter" },
+  { href: "/json-schema-validator", icon: ShieldCheck, label: "JSON Schema Validator" },
   { href: "/image-compressor", icon: ImageIcon, label: "Image Compressor" },
   { href: "/base64", icon: Binary, label: "Base64 Encoder" },
   { href: "/url-encoder", icon: LinkIcon, label: "URL Encoder" },

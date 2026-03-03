@@ -102,6 +102,7 @@ export function JsonFormatterClient() {
   
   const handleJsonToGet = () => handleTransform(jsonUtils.jsonToGet, "Converted JSON to URL Params");
   const handleGetToJson = () => handleTransform(jsonUtils.getToJson, "Converted URL Params to JSON", false);
+  const handleJsonToPython = () => handleTransform(jsonUtils.jsonToPython, "Converted JSON to Python Dict");
 
   // Load Example
   const handleLoadExample = () => {
@@ -240,6 +241,7 @@ export function JsonFormatterClient() {
             <DropdownMenuItem onClick={handleJsonToXml} className="cursor-pointer focus:bg-[#22C55E]/20">JSON → XML</DropdownMenuItem>
             <DropdownMenuItem onClick={handleJsonToYaml} className="cursor-pointer focus:bg-[#22C55E]/20">JSON → YAML</DropdownMenuItem>
             <DropdownMenuItem onClick={handleJsonToGet} className="cursor-pointer focus:bg-[#22C55E]/20">JSON → URL Params</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleJsonToPython} className="cursor-pointer focus:bg-[#22C55E]/20">JSON → Python Dict</DropdownMenuItem>
             <DropdownMenuSeparator className="bg-white/10"/>
             <DropdownMenuLabel>Reverse to JSON</DropdownMenuLabel>
             <DropdownMenuItem onClick={handleXmlToJson} className="cursor-pointer focus:bg-[#22C55E]/20">XML → JSON</DropdownMenuItem>

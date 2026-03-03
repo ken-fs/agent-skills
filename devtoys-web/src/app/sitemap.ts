@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/json-formatter',
+    '/jwt-debugger',
+    '/json-schema-validator',
     // We can add more specific tool routes here as they are developed
   ].map((route) => ({
     url: `${BASE_URL}${route}`,

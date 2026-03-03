@@ -103,4 +103,34 @@ export const jsonUtils = {
     });
     return JSON.stringify(obj, null, 2);
   },
+  jsonToPython: (input: string, indent: number | string = 2): string => {
+    const obj = JSON.parse(input);
+    
+    const pythonStringify = (val: any, level: number = 0): string => {
+      const indStr = typeof indent === 'string' ? indent : ' '.repeat(indent);
+      const currentIndent = indStr.repeat(level);
+      const nextIndent = indStr.repeat(level + 1);
+
+      if (val === null) return 'None';
+      if (typeof val === 'boolean') return val ? 'True' : 'False';
+      if (typeof val === 'string') return JSON.stringify(val); // this safely escapes strings
+      if (typeof val === 'number') return String(val);
+      
+      if (Array.isArray(val)) {
+        if (val.length === 0) return '[]';
+        const items = val.map(v => `${nextIndent}${pythonStringify(v, level + 1)}`).join(',\n');
+        return `[\n${items}\n${currentIndent}]`;
+      }
+      
+      if (typeof val === 'object') {
+        const keys = Object.keys(val);
+        if (keys.length === 0) return '{}';
+        const items = keys.map(k => `${nextIndent}${JSON.stringify(k)}: ${pythonStringify(val[k], level + 1)}`).join(',\n');
+        return `{\n${items}\n${currentIndent}}`;
+      }
+      return 'None';
+    };
+
+    return pythonStringify(obj, 0);
+  },
 };
